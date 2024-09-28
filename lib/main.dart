@@ -53,7 +53,7 @@ class MyHomePage extends StatelessWidget {
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: NetworkImage(
-                      'https://raw.githubusercontent.com/Danah1989/Hallat/refs/heads/main/Get%20Started.png',
+                      'https://raw.githubusercontent.com/Danah1989/Hallat/refs/heads/main/assets/Get%20Started.png',
                     ),
                     fit: BoxFit.cover, // Scale the image to cover the entire area
                   ),
@@ -225,7 +225,7 @@ class LoginState extends State<Login> {
                 left: screenWidth * 0.1,
                 top: screenHeight * 0.11,
                 child: Image.network(
-                  'https://raw.githubusercontent.com/Danah1989/Hallat/refs/heads/main/Logo.png',
+                  'https://raw.githubusercontent.com/Danah1989/Hallat/refs/heads/main/assets/Logo2.png',
                   width: screenWidth * 0.8, // Responsive width for the logo
                   height: screenHeight * 0.35, // Responsive height for the logo
                 ),
