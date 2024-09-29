@@ -375,7 +375,12 @@ class LoginState extends State<Login> {
                 top: screenHeight * 0.72,
                 child: GestureDetector(
                   onTap: () {
-                    // Implement the Forgot Password functionality here
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ForgotPasswordPage(), // Navigate to the ResetPasswordPage
+                      ),
+                    );
                   },
                   child: Text(
                     'Forgot password?',
@@ -445,6 +450,9 @@ class LoginState extends State<Login> {
     );
   }
 }
+
+
+
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
@@ -645,6 +653,8 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 }
+
+
 class VerifyEmailPage extends StatelessWidget {
   const VerifyEmailPage({super.key});
 
@@ -725,11 +735,11 @@ class VerifyEmailPage extends StatelessWidget {
               // Instructional Text
               Positioned(
                 left: screenWidth * 0.1,
-                top: screenHeight * 0.55,
+                top: screenHeight * 0.54,
                 child: SizedBox(
                   width: screenWidth * 0.8,
                   child: Text(
-                    'We just sent a 5-digit code to your email, enter it below:',
+                    "We've sent a 5-digit code to your email address. Please enter it below to verify your email:",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white,
@@ -868,6 +878,775 @@ class VerifyEmailPage extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+class ForgotPasswordPage extends StatelessWidget {
+  const ForgotPasswordPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double baseFontSize = screenWidth * 0.05; // Dynamic font size based on screen width
+
+    final TextEditingController emailController = TextEditingController();
+
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Container(
+          width: screenWidth,
+          height: screenHeight,
+          decoration: const BoxDecoration(
+            color: Color(0xFF324404), // Background color matching other pages
+          ),
+          child: Stack(
+            children: [
+              // Background for the top section
+              Positioned(
+                left: 0,
+                top: 0,
+                child: Container(
+                  width: screenWidth,
+                  height: screenHeight * 0.7,
+                  decoration: const BoxDecoration(
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+
+              // Logo image positioned at the top
+              Positioned(
+                left: screenWidth * 0.1,
+                top: screenHeight * 0.10,
+                child: Image.network(
+                  'https://raw.githubusercontent.com/Danah1989/Hallat/refs/heads/main/assets/Logo_2.png',
+                  width: screenWidth * 0.8,
+                  height: screenHeight * 0.35,
+                ),
+              ),
+
+              // Gradient overlay for blending the top background
+              Positioned(
+                left: 0,
+                top: screenHeight * 0.301,
+                child: Container(
+                  width: screenWidth,
+                  height: screenHeight * 0.4,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.transparent, // Transparent top part of the gradient
+                        Color(0xFF324404), // Dark green gradient blending into the background
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                  ),
+                ),
+              ),
+
+              // Title "Forgot Password"
+              Positioned(
+                left: screenWidth * 0.1,
+                top: screenHeight * 0.5,
+                child: SizedBox(
+                  width: screenWidth * 0.8,
+                  child: Text(
+                    'Forgot Password',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: baseFontSize * 1.3, // Larger font size for title
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ),
+
+              // Subtitle "Enter your email address"
+              Positioned(
+                left: screenWidth * 0.1,
+                top: screenHeight * 0.55,
+                child: SizedBox(
+                  width: screenWidth * 0.8,
+                  child: Text(
+                    'Enter your email address',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white.withOpacity(0.7),
+                      fontSize: baseFontSize * 0.9,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+              ),
+
+              // Email input field
+              Positioned(
+                left: screenWidth * 0.1,
+                top: screenHeight * 0.6,
+                child: Container(
+                  width: screenWidth * 0.8,
+                  height: screenHeight * 0.068,
+                  padding: EdgeInsets.all(screenWidth * 0.02),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.15),
+                    borderRadius: BorderRadius.circular(screenWidth * 0.02),
+                  ),
+                  child: TextField(
+                    controller: emailController,
+                    style: TextStyle(color: Colors.white, fontSize: baseFontSize * 0.9),
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(
+                        vertical: screenHeight * 0.01,
+                        horizontal: screenWidth * 0.04,
+                      ),
+                      filled: true,
+                      fillColor: Colors.white.withOpacity(0.0),
+                      hintText: 'Enter email address',
+                      hintStyle: TextStyle(
+                        color: Colors.white.withOpacity(0.7),
+                        fontSize: baseFontSize * 0.9,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(screenWidth * 0.02),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+
+              // Continue button
+              Positioned(
+                left: screenWidth * 0.1,
+                top: screenHeight * 0.7,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ResetPasswordCodePage(),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    width: screenWidth * 0.8,
+                    height: screenHeight * 0.08,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(screenWidth * 0.02),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Continue',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: baseFontSize,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+class ResetPasswordCodePage extends StatelessWidget {
+  const ResetPasswordCodePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double baseFontSize = screenWidth * 0.045; // Base font size for dynamic scaling
+
+    // Controllers for each input field
+    List<TextEditingController> codeControllers = List.generate(5, (_) => TextEditingController());
+
+    // Focus nodes for controlling focus between the fields
+    List<FocusNode> focusNodes = List.generate(5, (_) => FocusNode());
+
+    // Function to clear input fields
+    void clearCodeInputs() {
+      for (var controller in codeControllers) {
+        controller.clear(); // Clear each input field
+      }
+      FocusScope.of(context).unfocus(); // Unfocus all text fields to hide keyboard
+    }
+
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Container(
+          width: screenWidth,
+          height: screenHeight,
+          decoration: const BoxDecoration(
+            color: Color(0xFF324404), // Background color for the login page
+          ),
+          child: Stack(
+            children: [
+              // Background for top section
+              Positioned(
+                left: 0,
+                top: 0,
+                child: Container(
+                  width: screenWidth,
+                  height: screenHeight * 0.7,
+                  decoration: const BoxDecoration(
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+
+              // Logo image positioned at the top
+              Positioned(
+                left: screenWidth * 0.1,
+                top: screenHeight * 0.06,
+                child: Image.network(
+                  'https://raw.githubusercontent.com/Danah1989/Hallat/refs/heads/main/assets/Logo_2.png',
+                  width: screenWidth * 0.8, // Responsive width for the logo
+                  height: screenHeight * 0.35, // Responsive height for the logo
+                ),
+              ),
+
+              // Gradient overlay for blending the top background
+              Positioned(
+                left: 0,
+                top: screenHeight * 0.301,
+                child: Container(
+                  width: screenWidth,
+                  height: screenHeight * 0.4,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.transparent, // Transparent top part of the gradient
+                        Color(0xFF324404), // Dark green gradient blending into the background
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                  ),
+                ),
+              ),
+
+              // Instructional Text
+              Positioned(
+                left: screenWidth * 0.1,
+                top: screenHeight * 0.54,
+                child: SizedBox(
+                  width: screenWidth * 0.8,
+                  child: Text(
+                    "We've sent a 5-digit code to your email address. Please enter it below to reset your password:",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: baseFontSize,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ),
+
+              // Code input boxes (adjusted for responsiveness)
+              Positioned(
+                left: screenWidth * 0.14,
+                top: screenHeight * 0.65,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    for (int i = 0; i < 5; i++) ...[
+                      Container(
+                        width: screenWidth * 0.12,
+                        height: screenHeight * 0.07,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(screenWidth * 0.02),
+                        ),
+                        child: Center(
+                          child: TextField(
+                            controller: codeControllers[i],
+                            focusNode: focusNodes[i],
+                            textAlign: TextAlign.center,
+                            keyboardType: TextInputType.number,
+                            maxLength: 1, // Limit input to 1 character
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 24,
+                            ),
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              counterText: "",
+                            ),
+                            onChanged: (value) {
+                              if (value.isNotEmpty && i < 4) {
+                                // Move to the next field if a digit is entered
+                                FocusScope.of(context).requestFocus(focusNodes[i + 1]);
+                              } else if (value.isEmpty && i > 0) {
+                                // Move back to the previous field if backspace is pressed
+                                FocusScope.of(context).requestFocus(focusNodes[i - 1]);
+                              }
+                            },
+                            onSubmitted: (_) {
+                              // Allow submitting by clearing inputs for retry
+                              codeControllers.forEach((controller) {
+                                controller.clear();
+                              });
+                              FocusScope.of(context).unfocus();
+                            },
+                          ),
+                        ),
+                      ),
+                      if (i < 4) SizedBox(width: screenWidth * 0.03), // Add spacing between boxes
+                    ],
+                  ],
+                ),
+              ),
+
+              // Reset password button
+              Positioned(
+                left: screenWidth * 0.1,
+                top: screenHeight * 0.75,
+                child: GestureDetector(
+                  onTap: () {
+                    // Logic to verify the code goes here (e.g., call an API)
+                    // After verification, clear the inputs and navigate to reset password page
+                    clearCodeInputs();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const ResetPasswordPage()), // Navigate to the Reset Password Page
+                    );
+                  },
+
+                  child: Container(
+                    width: screenWidth * 0.8,
+                    height: screenHeight * 0.08, // Dynamic button height
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(screenWidth * 0.02),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Verify Code',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: baseFontSize,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+
+              // Wrong email? Text
+              Positioned(
+                left: screenWidth * 0.15,
+                top: screenHeight * 0.84,
+                child: Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text: 'Wrong email? ',
+                        style: TextStyle(
+                          color: const Color(0xFFEBEDF0),
+                          fontSize: baseFontSize * 0.9,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      TextSpan(
+                        text: 'Send to different email',
+                        style: TextStyle(
+                          color: const Color(0xFFEBEDF0),
+                          fontSize: baseFontSize * 0.9,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w700,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => const ForgotPasswordPage()), // Navigate back to Forgot Password page
+                            );
+                          },
+                      ),
+                    ],
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ResetPasswordPage extends StatefulWidget {
+  const ResetPasswordPage({super.key});
+
+  @override
+  _ResetPasswordPageState createState() => _ResetPasswordPageState();
+}
+
+class _ResetPasswordPageState extends State<ResetPasswordPage> {
+  bool _isPasswordVisible = false;
+  bool _isConfirmPasswordVisible = false;
+
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
+
+  // Helper function to create input fields for passwords
+  Widget buildPasswordField(String label, TextEditingController controller, bool isPasswordVisible, Function toggleVisibility) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double baseFontSize = screenWidth * 0.05;
+
+    return Container(
+      width: screenWidth * 0.8,
+      height: screenHeight * 0.068,
+      padding: EdgeInsets.all(screenWidth * 0.02),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.15),
+        borderRadius: BorderRadius.circular(screenWidth * 0.02),
+      ),
+      child: TextField(
+        controller: controller,
+        obscureText: !isPasswordVisible,
+        style: TextStyle(color: Colors.white, fontSize: baseFontSize * 0.9),
+        textAlignVertical: TextAlignVertical.center,
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(
+            vertical: screenHeight * 0.01,
+            horizontal: screenWidth * 0.04,
+          ),
+          filled: true,
+          fillColor: Colors.white.withOpacity(0.0),
+          hintText: label,
+          hintStyle: TextStyle(
+            color: Colors.white.withOpacity(0.7),
+            fontSize: baseFontSize * 0.9,
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(screenWidth * 0.02),
+            borderSide: BorderSide.none,
+          ),
+          suffixIcon: IconButton(
+            icon: Icon(
+              isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+              color: Colors.white.withOpacity(0.7),
+            ),
+            onPressed: () => toggleVisibility(),
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double baseFontSize = screenWidth * 0.045;
+
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Container(
+          width: screenWidth,
+          height: screenHeight,
+          decoration: const BoxDecoration(
+            color: Color(0xFF324404), // Background color
+          ),
+          child: Stack(
+            children: [
+              // Background section
+              Positioned(
+                left: 0,
+                top: 0,
+                child: Container(
+                  width: screenWidth,
+                  height: screenHeight * 0.7,
+                  decoration: const BoxDecoration(
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              // Logo
+              Positioned(
+                left: screenWidth * 0.1,
+                top: screenHeight * 0.10,
+                child: Image.network(
+                  'https://raw.githubusercontent.com/Danah1989/Hallat/refs/heads/main/assets/Logo_2.png',
+                  width: screenWidth * 0.8,
+                  height: screenHeight * 0.35,
+                ),
+              ),
+
+              // Gradient overlay for blending the top background
+              Positioned(
+                left: 0,
+                top: screenHeight * 0.301,
+                child: Container(
+                  width: screenWidth,
+                  height: screenHeight * 0.4,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.transparent, // Transparent top part of the gradient
+                        Color(0xFF324404), // Dark green gradient blending into the background
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                  ),
+                ),
+              ),
+
+              Positioned(
+                left: screenWidth * 0.1,
+                top: screenHeight * 0.54,
+                child: SizedBox(
+                  width: screenWidth * 0.8,
+                  child: Text(
+                    "Enter your new password below",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: baseFontSize,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ),
+
+              // Password and Confirm Password fields
+              Positioned(
+                left: screenWidth * 0.1,
+                top: screenHeight * 0.61,
+                child: Column(
+                  children: [
+                    buildPasswordField(
+                      'New Password',
+                      passwordController,
+                      _isPasswordVisible,
+                          () {
+                        setState(() {
+                          _isPasswordVisible = !_isPasswordVisible;
+                        });
+                      },
+                    ),
+                    const SizedBox(height: 15),
+                    buildPasswordField(
+                      'Confirm Password',
+                      confirmPasswordController,
+                      _isConfirmPasswordVisible,
+                          () {
+                        setState(() {
+                          _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
+                        });
+                      },
+                    ),
+                    const SizedBox(height: 25),
+                  ],
+                ),
+              ),
+              // Reset password button
+              Positioned(
+                left: screenWidth * 0.1,
+                top: screenHeight * 0.82,
+                child: GestureDetector(
+                  onTap: () {
+                    // Navigate to AllDonePage
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const AllDonePage()), // Navigate to the AllDonePage
+                    );
+                  },
+                  child: Container(
+                    width: screenWidth * 0.8,
+                    height: screenHeight * 0.08,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(screenWidth * 0.02),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Change Password',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: baseFontSize,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+class AllDonePage extends StatelessWidget {
+  const AllDonePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double baseFontSize = screenWidth * 0.05; // Dynamic font size based on screen width
+
+    return Scaffold(
+      body: Container(
+        width: screenWidth,
+        height: screenHeight,
+        decoration: const BoxDecoration(
+          color: Color(0xFF324404), // Background color
+        ),
+        child: Stack(
+          children: [
+            // Background for top section
+            Positioned(
+              left: 0,
+              top: 0,
+              child: Container(
+                width: screenWidth,
+                height: screenHeight * 0.7,
+                decoration: const BoxDecoration(
+                  color: Colors.black,
+                ),
+              ),
+            ),
+
+            // Logo image positioned at the top
+            Positioned(
+              left: screenWidth * 0.1,
+              top: screenHeight * 0.1,
+              child: Image.network(
+                'https://raw.githubusercontent.com/Danah1989/Hallat/refs/heads/main/assets/Logo_2.png',
+                width: screenWidth * 0.8, // Responsive width for the logo
+                height: screenHeight * 0.35, // Responsive height for the logo
+              ),
+            ),
+
+            // Gradient overlay for blending the top background
+            Positioned(
+              left: 0,
+              top: screenHeight * 0.3,
+              child: Container(
+                width: screenWidth,
+                height: screenHeight * 0.4,
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.transparent, // Transparent top part of the gradient
+                      Color(0xFF324404), // Dark green gradient blending into the background
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                ),
+              ),
+            ),
+
+            // All Done! Text
+            Positioned(
+              left: screenWidth * 0.1,
+              top: screenHeight * 0.55,
+              child: SizedBox(
+                width: screenWidth * 0.8,
+                child: Text(
+                  'All Done!',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: baseFontSize * 1.4, // Slightly larger font
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ),
+
+            // Success message text
+            Positioned(
+              left: screenWidth * 0.1,
+              top: screenHeight * 0.62,
+              child: SizedBox(
+                width: screenWidth * 0.8,
+                child: Text(
+                  'Your changes have been saved successfully.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.7),
+                    fontSize: baseFontSize * 1,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+            ),
+
+            // Button to navigate back to login page
+            Positioned(
+              left: screenWidth * 0.1,
+              top: screenHeight * 0.75,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Login()), // Navigate to the login page
+                  );
+                },
+                child: Container(
+                  width: screenWidth * 0.8,
+                  height: screenHeight * 0.08, // Dynamic button height
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(screenWidth * 0.02),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Go to Login',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: baseFontSize,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
